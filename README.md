@@ -19,7 +19,7 @@ This MCP server gives Claude Code full C# IDE capabilities:
 
 ## Prerequisites
 
-- [.NET SDK 8.0+](https://dotnet.microsoft.com/download) installed
+- [.NET SDK 9.0+](https://dotnet.microsoft.com/download) installed
 - [Claude Code CLI](https://claude.ai/code) installed
 - A C# solution file (`.sln`)
 
@@ -35,11 +35,11 @@ dotnet publish src/OmniSharpMCP/OmniSharpMCP.csproj -c Release -o publish
 
 ### 2. Configure Claude Code
 
-Add the MCP server to your Claude Code configuration.
+Create and add the MCP server to your Claude Code configuration.
 
-**Option A: Global (all projects)**
+**Which is needed Per-project**
 
-Edit `~/.claude/mcp.json`:
+A. Create `.mcp.json` in your project root:
 
 ```json
 {
@@ -56,19 +56,18 @@ Edit `~/.claude/mcp.json`:
 }
 ```
 
-**Option B: Per-project**
+B. Edit the .claude/mcp.json file args and env values.
 
-Create `.mcp.json` in your project root:
-
+Example edited mcp.json file in my project:
 ```json
 {
   "mcpServers": {
     "csharp": {
       "type": "stdio",
       "command": "dotnet",
-      "args": ["/path/to/omnisharp-mcp/publish/OmniSharpMCP.dll"],
+      "args": ["/Users/omersomekhbeachbum/dev/omnisharp-mcp/publish/OmniSharpMCP.dll"],
       "env": {
-        "OMNISHARP_SOLUTION": "/path/to/your/project.sln"
+        "OMNISHARP_SOLUTION": "/Users/omersomekhbeachbum/dev/rummystars-client/rummystars-client.sln"
       }
     }
   }
@@ -77,7 +76,7 @@ Create `.mcp.json` in your project root:
 
 ### 3. Enable the MCP Server
 
-Edit `~/.claude/settings.local.json`:
+Create (if not already created) and edit `~/.claude/settings.local.json`:
 
 ```json
 {
@@ -88,6 +87,9 @@ Edit `~/.claude/settings.local.json`:
 
 ### 4. Restart Claude Code
 
+The mcp will be able to start whenever all claude instances are closed.
+
+Start claude again:
 ```bash
 claude
 ```
