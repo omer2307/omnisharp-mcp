@@ -102,6 +102,10 @@ Verify the server is connected:
 
 You should see `csharp` in the list of connected servers.
 
+## Enable claude to use omnisharp-mcp tool
+This is done out of the box! No additional config here is needed.
+Whenever claude instance is running - he has all the tools, and you dont need to specify for his what tools to use. Based on the prompt the claude instance will decide what tools will serve him the best to get to the wanted result.
+
 ## First Run
 
 On first run, the MCP server will:
