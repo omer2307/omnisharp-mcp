@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ModelContextProtocol.Server;
@@ -28,6 +29,11 @@ if (string.IsNullOrEmpty(solutionPath))
             }
         }
     }
+}
+
+if (string.IsNullOrEmpty(solutionPath))
+{
+    solutionPath = TryResolveFromClaudePlugins();
 }
 
 if (string.IsNullOrEmpty(solutionPath))
@@ -118,3 +124,91 @@ lifetime.ApplicationStarted.Register(() =>
 
 Console.Error.WriteLine("[OmniSharpMCP] MCP server starting...");
 await app.RunAsync();
+
+static string? TryResolveFromClaudePlugins()
+{
+    try
+    {
+        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var pluginsFile = Path.Combine(home, ".claude", "plugins", "installed_plugins.json");
+        if (!File.Exists(pluginsFile))
+        {
+            return null;
+        }
+
+        // AppContext.BaseDirectory returns the publish/ dir; parent is the install path
+        var baseDir = AppContext.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
+        var installPath = Path.GetDirectoryName(baseDir);
+        if (string.IsNullOrEmpty(installPath))
+        {
+            return null;
+        }
+
+        var json = File.ReadAllText(pluginsFile);
+        using var doc = JsonDocument.Parse(json);
+        var root = doc.RootElement;
+
+        if (!root.TryGetProperty("plugins", out var plugins))
+        {
+            return null;
+        }
+
+        foreach (var pluginEntry in plugins.EnumerateObject())
+        {
+            foreach (var install in pluginEntry.Value.EnumerateArray())
+            {
+                if (!install.TryGetProperty("installPath", out var ip))
+                {
+                    continue;
+                }
+
+                var candidatePath = ip.GetString();
+                if (candidatePath == null)
+                {
+                    continue;
+                }
+
+                // Normalize both paths for comparison
+                var normalizedCandidate = Path.GetFullPath(candidatePath);
+                var normalizedInstall = Path.GetFullPath(installPath);
+
+                if (!string.Equals(normalizedCandidate, normalizedInstall, StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                if (!install.TryGetProperty("projectPath", out var pp))
+                {
+                    continue;
+                }
+
+                var projectPath = pp.GetString();
+                if (string.IsNullOrEmpty(projectPath) || !Directory.Exists(projectPath))
+                {
+                    continue;
+                }
+
+                var slnFiles = Directory.GetFiles(projectPath, "*.sln");
+                if (slnFiles.Length == 1)
+                {
+                    Console.Error.WriteLine($"[OmniSharpMCP] Auto-detected solution via Claude plugins: {slnFiles[0]}");
+                    return slnFiles[0];
+                }
+                else if (slnFiles.Length > 1)
+                {
+                    Console.Error.WriteLine("[OmniSharpMCP] Multiple .sln files found via Claude plugins:");
+                    foreach (var sln in slnFiles)
+                    {
+                        Console.Error.WriteLine($"  - {sln}");
+                    }
+                }
+            }
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Error.WriteLine($"[OmniSharpMCP] Claude plugins lookup failed: {ex.Message}");
+    }
+
+    return null;
+}
