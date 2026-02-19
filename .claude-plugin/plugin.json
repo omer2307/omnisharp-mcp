@@ -1,0 +1,8 @@
+{
+  "name": "omnisharp-mcp",
+  "description": "MCP server providing C# code analysis via OmniSharp",
+  "author": {
+    "name": "BeachBum Engineering"
+  },
+  "keywords": ["csharp", "mcp", "omnisharp", "dotnet"]
+}

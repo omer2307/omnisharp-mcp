@@ -32,10 +32,28 @@ if (string.IsNullOrEmpty(solutionPath))
 
 if (string.IsNullOrEmpty(solutionPath))
 {
-    Console.Error.WriteLine("Error: No solution path specified.");
-    Console.Error.WriteLine("Usage: OmniSharpMCP --solution <path-to-sln>");
-    Console.Error.WriteLine("   or: Set OMNISHARP_SOLUTION environment variable");
-    Environment.Exit(1);
+    // Auto-detect: find .sln files in current working directory
+    var slnFiles = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.sln");
+    if (slnFiles.Length == 1)
+    {
+        solutionPath = slnFiles[0];
+        Console.Error.WriteLine($"[OmniSharpMCP] Auto-detected solution: {solutionPath}");
+    }
+    else if (slnFiles.Length > 1)
+    {
+        Console.Error.WriteLine("Error: Multiple .sln files found. Set OMNISHARP_SOLUTION to pick one.");
+        foreach (var sln in slnFiles)
+        {
+            Console.Error.WriteLine($"  - {sln}");
+        }
+        Environment.Exit(1);
+    }
+    else
+    {
+        Console.Error.WriteLine("Error: No .sln file found in current directory.");
+        Console.Error.WriteLine("Set OMNISHARP_SOLUTION environment variable or run from a directory with a .sln file.");
+        Environment.Exit(1);
+    }
 }
 
 if (!File.Exists(solutionPath))
