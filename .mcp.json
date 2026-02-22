@@ -2,9 +2,8 @@
   "mcpServers": {
     "csharp": {
       "type": "stdio",
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/launch.js"],
-      "cwd": "${CLAUDE_PLUGIN_ROOT}"
+      "command": "dotnet",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/publish/OmniSharpMCP.dll"]
     }
   }
 }
