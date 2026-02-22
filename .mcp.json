@@ -2,11 +2,9 @@
   "mcpServers": {
     "csharp": {
       "type": "stdio",
-      "command": "bash",
-      "args": [
-        "-c",
-        "exec dotnet \"$(find ~/.claude/plugins/cache -path '*/omnisharp-mcp/*/publish/OmniSharpMCP.dll' 2>/dev/null | tail -1)\""
-      ]
+      "command": "dotnet",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/publish/OmniSharpMCP.dll"],
+      "cwd": "${CLAUDE_PLUGIN_ROOT}"
     }
   }
 }
