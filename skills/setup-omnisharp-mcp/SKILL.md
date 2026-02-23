@@ -37,11 +37,10 @@ Check platform-specific paths in order, stopping at the first one that exists.
 
 **Fallback (all platforms):** run `which dotnet` (or `where dotnet` on Windows).
 
-If dotnet is not found anywhere, tell the user:
-"dotnet was not found on this machine. Install the .NET SDK from https://dotnet.microsoft.com/download, then run this setup again."
-Then **stop**.
+If an absolute path is found, store it for later.
 
-Store the **absolute path** to the dotnet executable for later.
+If dotnet is not found anywhere, fall back to plain `dotnet` and warn the user:
+"dotnet was not found at any known location. Falling back to `dotnet` and assuming it is on your PATH. If the MCP server fails to start, install the .NET SDK from https://dotnet.microsoft.com/download and ensure `dotnet` is on your PATH."
 
 ## Step 3 -- Find the plugin DLL
 
@@ -62,8 +61,10 @@ Store the **absolute path** to the DLL for later.
 Run the following command, substituting the actual absolute paths found in the previous steps:
 
 ```
-claude mcp add -s project -e OMNISHARP_SOLUTION=<absolute-sln-path> -- csharp <absolute-dotnet-path> <absolute-dll-path>
+claude mcp add -s project -e OMNISHARP_SOLUTION=<absolute-sln-path> -- csharp <dotnet-path-or-dotnet> <absolute-dll-path>
 ```
+
+Where `<dotnet-path-or-dotnet>` is the absolute path found in Step 2, or plain `dotnet` if no absolute path was found.
 
 If the command fails, show the error to the user and **stop**.
 
