@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "csharp": {
+      "type": "stdio",
+      "command": "dotnet",
+      "args": ["run", "--project", "${CLAUDE_PLUGIN_ROOT}/src/OmniSharpMCP/OmniSharpMCP.csproj", "-c", "Release"]
+    }
+  }
+}
