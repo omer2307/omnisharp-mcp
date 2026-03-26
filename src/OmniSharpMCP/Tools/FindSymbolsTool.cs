@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class FindSymbolsTool
 {
     [McpServerTool(Name = "find_symbols")]
-    [Description("Search for symbols (classes, methods, properties, etc.) in the workspace by name pattern.")]
+    [Description("Search for C# symbols (classes, methods, interfaces, enums, properties) across the entire solution by name. Compiler-aware: returns symbol kind, containing type, and exact location. Prefer this over Grep when searching for C# type or member declarations.")]
     public static async Task<string> FindSymbolsAsync(
         OmniSharpClient client,
         [Description("Search filter/pattern for symbol names")] string filter,

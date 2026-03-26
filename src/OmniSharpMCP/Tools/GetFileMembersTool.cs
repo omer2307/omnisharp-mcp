@@ -9,7 +9,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetFileMembersTool
 {
     [McpServerTool(Name = "get_file_members")]
-    [Description("Get the structure/outline of a C# file, including classes, methods, properties, and fields.")]
+    [Description("Get a structured outline of a C# file showing all types, methods, properties, and fields with their accessibility modifiers and return types. Faster than reading the entire file when you only need to understand the structure and API surface of a class.")]
     public static async Task<string> GetFileMembersAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath)

@@ -9,7 +9,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetTypeInfoTool
 {
     [McpServerTool(Name = "get_type_info")]
-    [Description("Get type information and documentation for a symbol at a specific position.")]
+    [Description("Get the resolved type and XML documentation for a C# symbol at a specific file position. Returns the fully-qualified type (including resolved generics and inferred types) and documentation comments. Use this when you need to understand what type a variable, parameter, or expression resolves to.")]
     public static async Task<string> GetTypeInfoAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

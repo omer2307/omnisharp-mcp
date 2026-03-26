@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class FindReferencesTool
 {
     [McpServerTool(Name = "find_references")]
-    [Description("Find all references to a symbol at a specific position in a C# file. Returns locations where the symbol is used.")]
+    [Description("Find all usages of a C# symbol across the entire solution using semantic analysis. Unlike Grep, returns only actual code references — no false positives from comments, strings, or similarly-named symbols. Use this to understand impact before refactoring or to trace how a type/method is consumed.")]
     public static async Task<string> FindReferencesAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

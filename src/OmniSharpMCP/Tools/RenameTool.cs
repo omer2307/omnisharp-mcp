@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class RenameTool
 {
     [McpServerTool(Name = "preview_rename")]
-    [Description("Preview what changes would be made when renaming a symbol. Does not apply changes, only shows what would change.")]
+    [Description("Preview all changes that renaming a C# symbol would produce across the entire solution. Returns every file and location that would be modified, without applying changes. Use this before performing a rename to understand the full impact — this is semantic rename, not text find-and-replace.")]
     public static async Task<string> PreviewRenameAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

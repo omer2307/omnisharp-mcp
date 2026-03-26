@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class FindImplementationsTool
 {
     [McpServerTool(Name = "find_implementations")]
-    [Description("Find all implementations of an interface or virtual/abstract member. Useful for finding concrete implementations.")]
+    [Description("Find all concrete implementations of a C# interface, abstract class, or virtual/override member across the solution. Use this to discover which classes implement an interface or override a method — semantic analysis that text search cannot reliably perform.")]
     public static async Task<string> FindImplementationsAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

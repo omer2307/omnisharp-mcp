@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetWorkspaceInfoTool
 {
     [McpServerTool(Name = "get_workspace_info")]
-    [Description("Get information about the loaded solution/projects including project paths, target frameworks, and references.")]
+    [Description("Get solution structure: all projects, their target frameworks, assembly names, source file counts, and Unity project detection. Use this to understand the solution layout, project dependencies, and build configuration.")]
     public static async Task<string> GetWorkspaceInfoAsync(OmniSharpClient client)
     {
         var response = await client.GetWorkspaceInfoAsync();

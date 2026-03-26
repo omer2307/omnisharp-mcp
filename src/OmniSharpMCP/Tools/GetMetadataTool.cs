@@ -7,7 +7,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetMetadataTool
 {
     [McpServerTool(Name = "get_decompiled_source")]
-    [Description("Get decompiled source code for a type from a referenced assembly (metadata). Useful when go_to_definition returns a metadata reference.")]
+    [Description("Get decompiled source code for a type from a referenced assembly (e.g., .NET framework, NuGet packages, Unity engine assemblies). Use this when go_to_definition returns a metadata reference, or when you need to inspect the implementation of a framework/library type that has no source in the project.")]
     public static async Task<string> GetDecompiledSourceAsync(
         OmniSharpClient client,
         [Description("Name of the assembly (e.g., 'System.Collections')")] string assemblyName,

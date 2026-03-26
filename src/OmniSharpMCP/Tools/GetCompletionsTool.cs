@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetCompletionsTool
 {
     [McpServerTool(Name = "get_completions")]
-    [Description("Get code completion suggestions at a specific position in a C# file.")]
+    [Description("Get context-aware code completion suggestions at a position in a C# file. Returns available members, types, and keywords valid at that location. Use this to discover available APIs, method overloads, or valid members on a type when writing or reviewing C# code.")]
     public static async Task<string> GetCompletionsAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

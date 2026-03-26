@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class GoToDefinitionTool
 {
     [McpServerTool(Name = "go_to_definition")]
-    [Description("Navigate to the definition of a symbol at a specific position. Returns the location of the symbol's definition.")]
+    [Description("Resolve the definition location of a C# symbol at a given file position. Returns the source file and line where the symbol is declared, or a metadata reference for framework/NuGet types. Use this to trace where a type, method, or variable is defined — especially when the definition is in another assembly or generated code that text search cannot find.")]
     public static async Task<string> GoToDefinitionAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,

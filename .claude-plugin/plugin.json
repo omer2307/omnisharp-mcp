@@ -1,8 +1,8 @@
 {
   "name": "omnisharp-mcp",
-  "description": "MCP server providing C# code analysis via OmniSharp",
+  "description": "C# semantic code intelligence for Unity/.NET projects — compiler-aware symbol search, type resolution, reference finding, and diagnostics via Roslyn. Use these tools instead of text search (Grep/Glob) when you need type-aware analysis of C# code.",
   "author": {
     "name": "BeachBum Engineering"
   },
-  "keywords": ["csharp", "mcp", "omnisharp", "dotnet"]
+  "keywords": ["csharp", "mcp", "omnisharp", "dotnet", "unity", "roslyn"]
 }

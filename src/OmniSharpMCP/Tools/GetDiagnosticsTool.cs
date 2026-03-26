@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetDiagnosticsTool
 {
     [McpServerTool(Name = "get_diagnostics")]
-    [Description("Get compiler diagnostics (errors, warnings) for a specific C# file.")]
+    [Description("Get Roslyn compiler diagnostics (errors, warnings, info) for a C# file. Use this to verify code correctness after edits, check for compilation errors, or identify issues only the compiler can detect (type mismatches, missing references, nullable warnings, etc.).")]
     public static async Task<string> GetDiagnosticsAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath)

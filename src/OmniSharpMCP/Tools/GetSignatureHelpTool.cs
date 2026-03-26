@@ -8,7 +8,7 @@ namespace OmniSharpMCP.Tools;
 public static class GetSignatureHelpTool
 {
     [McpServerTool(Name = "get_signature_help")]
-    [Description("Get method signature help at a position (useful when typing method arguments).")]
+    [Description("Get method signature overloads and parameter documentation at a call site position in a C# file. Returns all overloads with parameter names, types, and XML docs. Use this to understand method signatures, required parameters, and available overloads.")]
     public static async Task<string> GetSignatureHelpAsync(
         OmniSharpClient client,
         [Description("Absolute path to the C# file")] string filePath,
