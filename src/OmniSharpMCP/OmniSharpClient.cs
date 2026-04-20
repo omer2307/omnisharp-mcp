@@ -98,6 +98,11 @@ public class OmniSharpClient : IDisposable
         return await PostAsync<CodeCheckResponse>("/codecheck", request);
     }
 
+    public async Task<CodeCheckResponse?> GetSolutionDiagnosticsAsync()
+    {
+        return await PostAsync<CodeCheckResponse>("/codecheck", new { });
+    }
+
     public async Task<FindSymbolsResponse?> FindSymbolsAsync(string filter, int? maxItems = null)
     {
         var request = new FindSymbolsRequest
